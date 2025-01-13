@@ -2,6 +2,9 @@
 
 session_start();
 
+securityHeaders();
+
+
 require '../function/functions.php';
 require '../assets/lib/Parsedown.php';
 // $parsedown = new Parsedown();

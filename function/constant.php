@@ -1,8 +1,17 @@
 <?php
 
+function securityHeaders (){
+	header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload");
+header("X-Frame-Options: DENY");
+header("X-Content-Type-Options: nosniff");
+header("Referrer-Policy: no-referrer-when-downgrade");
+header("X-XSS-Protection: 1; mode=block");
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;");
+header("Permissions-Policy: geolocation=(), microphone=(), camera=()");
+}
 function getName()
 {
-	return "nihSx";
+	return "Rama Aryo Prambudi";
 }
 
 function getDefaultTheme()

@@ -5,6 +5,8 @@ require_once '../function/functions.php';
 require_once '../function/constant.php';
 require_once '../assets/lib/Parsedown.php';
 
+securityHeaders();
+
 $conn = koneksi();
 $data = mysqli_query($conn, "SELECT * FROM post");
 $parsedown = new Parsedown();

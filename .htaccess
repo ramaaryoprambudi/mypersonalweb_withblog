@@ -1,32 +1,15 @@
-# Mengaktifkan URL Rewrite
-RewriteEngine On
+# Blok akses ke direktori sensitif
+RedirectMatch 403 ^/(js|admin|assets|cgi-bin|cgi-sys|help|images|lib|mailman|pipermail|vendor|post|webmail|controlpanel|cpanel|kpanel)/
 
-# Redirect semua HTTP ke HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
-
-# Menentukan file default (index.php)
-DirectoryIndex index.php
-
-# Mencegah akses langsung ke file sensitif
-<FilesMatch "(\.env|config\.php|composer\.(json|lock)|\.htaccess)">
-    Order Allow,Deny
-    Deny from all
+# Blok akses ke file konfigurasi penting
+<FilesMatch "(\.htpasswds|\.user\.ini|\.env|wp-config\.php|php\.ini|config\.php|error_log|composer\.json|composer\.lock|\.gitignore|package\.json|wp-config\.php\..*|autoload_.*\.php|installed\.json|LICENSE)$">
+    Require all denied
 </FilesMatch>
 
-# Menangani Error Pages
-ErrorDocument 404 /404.html
-ErrorDocument 403 /403.html
+# Izinkan akses ke login
+<FilesMatch "(login\.php|index\.php/login/?)$">
+    Require all granted
+</FilesMatch>
 
-# Memblokir direktori agar tidak ditampilkan
+# Tambahan: Mencegah browsing isi folder
 Options -Indexes
-
-# Cache control untuk meningkatkan performa
-<IfModule mod_expires.c>
-    ExpiresActive On
-    ExpiresByType image/jpg "access plus 1 month"
-    ExpiresByType image/jpeg "access plus 1 month"
-    ExpiresByType image/png "access plus 1 month"
-    ExpiresByType text/css "access plus 1 week"
-    ExpiresByType application/javascript "access plus 1 week"
-</IfModule>

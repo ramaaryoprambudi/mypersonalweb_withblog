@@ -5,8 +5,11 @@ require_once '../function/functions.php';
 require_once '../function/constant.php';
 require_once '../assets/lib/Parsedown.php';
 
+securityHeaders();
+
+
 $conn = koneksi();
-$id = $_GET['id'];
+$id = htmlspecialchars($_GET['id'],ENT_QUOTES,"UTF-8");
 
 // Sanitize input with prepared statement
 $stmt = $conn->prepare("SELECT * FROM post WHERE id = ?");
@@ -101,7 +104,6 @@ $relateds_count = count($relateds);
 				<ul class="nav navbar-nav ms-auto w-100 justify-content-end me-5">
 					<a class="nav-link" aria-current="page" href="../index.php"><i class="fas fa-home"></i> Home</a>
 					<a class="nav-link" href="index.php"><i class="fas fa-book"></i> Blog</a>
-					<a class="nav-link" href="../about/index.php"><i class="fas fa-address-card"></i> About</a>
 					<?php if (isset($_SESSION['login'])) : ?>
 						<li class="nav-item dropdown mt-2">
 						<a class="dropdown-toggle text-white" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;"><img src="../assets/img/avatar/<?= $_SESSION['avatar']; ?>" alt="" class="rounded-circle" style="width: 30px;"></a>

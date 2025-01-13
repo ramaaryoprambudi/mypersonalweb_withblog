@@ -2,6 +2,9 @@
 
 session_start();
 
+securityHeaders();
+
+
 if (isset($_SESSION['login'])) {
   header("Location: ../admin/index.php");
 }
